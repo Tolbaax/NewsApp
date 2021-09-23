@@ -1,4 +1,4 @@
- class Article
+ class ArticleModel
  {
    String? title;
    String? author;
@@ -7,5 +7,5 @@
    String? desc;
    String? publishedAt;
    String? content;
-   Article({this.title,this.author,this.desc,this.url,this.urlImage,this.publishedAt,this.content});
+   ArticleModel({this.title,this.author,this.desc,this.url,this.urlImage,this.publishedAt,this.content});
  }

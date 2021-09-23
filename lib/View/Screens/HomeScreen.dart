@@ -4,7 +4,9 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news/Controller/API_Helper.dart';
 import 'package:news/Model/Category.dart';
+import 'package:news/Model/article.dart';
 import 'package:news/View/Screens/CategoryScreen.dart';
 import 'package:shimmer/shimmer.dart';
 class HomeScreen extends StatefulWidget {
@@ -27,10 +29,23 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isConnected=false;
   StreamSubscription? ConnectMethod;
   Connectivity connect=Connectivity();
+  List<ArticleModel> homeList=[];
+  ApiHelper apiHelper=ApiHelper();
 
+  getNews()
+  {
+    apiHelper.getNews().then((v)
+      {
+        setState(() {
+          homeList = v;
+        });
+      }
+    );
+  }
   @override
   initState() {
     super.initState();
+    getNews();
    ConnectMethod = connect.onConnectivityChanged.listen((result) {
       if(result !=ConnectivityResult.none)
         {
@@ -131,19 +146,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }),
           ),
-          Expanded(child: ListView.builder(itemBuilder: (context,index){
+          Expanded(child: ListView.builder(
+              itemCount: homeList.length,
+              itemBuilder: (context,index){
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                height: 0.5.sh,width: 1.sw,
+                height: 0.4.sh,width: 1.sw,
                 decoration: BoxDecoration(
                   color: Colors.red.shade900,
                   image: DecorationImage(
-                    image: NetworkImage(''),
-                  )
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                        homeList[index].urlImage==null?
+                        'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                            :
+                        homeList[index].urlImage!),)
+                ),
+                child: Column(
+                  children: [
+                    Text(homeList[index].title!),
+                  ],
                 ),
               ),
             );
+
           }),)
         ],
       ),

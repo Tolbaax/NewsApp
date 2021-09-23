@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
     super.initState();
-    Timer(Duration(seconds: 2), ()
+    Timer(Duration(seconds: 3), ()
     {
       Navigator.popAndPushNamed(context, HomeScreen.id);
     });

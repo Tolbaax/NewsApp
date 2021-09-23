@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:connectivity/connectivity.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,8 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news/Model/Category.dart';
 import 'package:news/View/Screens/CategoryScreen.dart';
 import 'package:shimmer/shimmer.dart';
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static String id ='HomeScreen';
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> category=[
     CategoryModel(title: 'Local',imagePath: 'https://i.guim.co.uk/img/media/3bf13aa96597041e2e1f68cfca85e2ca88f6d03c/0_186_5512_3308/master/5512.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=2d83f340e8389118873611688dd45323'),
     CategoryModel(title: 'Sports',imagePath: 'https://pbs.twimg.com/media/EjubLbzWsAAm-bf.jpg'),
@@ -15,6 +23,28 @@ class HomeScreen extends StatelessWidget {
     CategoryModel(title: 'Politics',imagePath: 'https://www.vicenzapiu.com/wp-content/uploads/2020/12/politica.jpg'),
     CategoryModel(title: 'LifeStyle',imagePath: 'https://www.eehealth.org/-/media/images/modules/blog/posts/2019/08/workout-in-gym.jpg'),
   ];
+
+  bool isConnected=false;
+  StreamSubscription? ConnectMethod;
+  Connectivity connect=Connectivity();
+
+  @override
+  initState() {
+    super.initState();
+   ConnectMethod = connect.onConnectivityChanged.listen((result) {
+      if(result !=ConnectivityResult.none)
+        {
+          setState(() {
+            isConnected=true;
+          });
+        }
+    });
+  }
+  @override
+  dispose() {
+    super.dispose();
+    ConnectMethod!.cancel();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +82,18 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
+      body:
+      !isConnected?Center(child:Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.wifi_off,size: 55.sp,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('No internet',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w500),),
+          ),
+        ],
+      )):
+      Column(
         children: [
           Container(
             height: 150.h,width: 1.sw,
@@ -90,6 +131,20 @@ class HomeScreen extends StatelessWidget {
                   );
                 }),
           ),
+          Expanded(child: ListView.builder(itemBuilder: (context,index){
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 0.5.sh,width: 1.sw,
+                decoration: BoxDecoration(
+                  color: Colors.red.shade900,
+                  image: DecorationImage(
+                    image: NetworkImage(''),
+                  )
+                ),
+              ),
+            );
+          }),)
         ],
       ),
     );

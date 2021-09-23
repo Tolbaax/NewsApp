@@ -34,6 +34,8 @@ dependencies:
   animated_splash_screen: ^1.1.0
   google_fonts: ^2.1.0
   font_awesome_flutter: ^9.1.0
+  http:
+  connectivity:
   country_code_picker:
 
 dev_dependencies:

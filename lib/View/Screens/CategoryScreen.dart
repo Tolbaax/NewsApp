@@ -4,8 +4,10 @@ import 'package:news/Controller/API_Helper.dart';
 import 'package:news/Model/Category.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/Model/article.dart';
+import 'package:shimmer/shimmer.dart';
+
 class CategoryScreen extends StatefulWidget {
-  static String id='CategoryScreen';
+  static String id = 'CategoryScreen';
   CategoryModel? category;
   CategoryScreen({this.category});
   @override
@@ -13,59 +15,83 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  List<ArticleModel> categoryList=[];
-
-  ApiHelper apiHelper=ApiHelper();
-
-  getNewsCategory()
-  {
-    apiHelper.getNewsCategory().then((value)
-    {
+  List<ArticleModel> articles = [];
+  ApiHelper apiHelper = ApiHelper();
+  getCategoryNews() {
+    apiHelper.getNewsCategory(widget.category!.categoryName!).then((v) {
       setState(() {
-        categoryList = value;
+        articles = v;
       });
     });
   }
 
   @override
+  initState() {
+    super.initState();
+    getCategoryNews();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 0.2.sh,
-            child: Image(image: NetworkImage(widget.category!.imagePath!),fit: BoxFit.fill,),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Text(widget.category!.title!,style: GoogleFonts.share(fontSize: 35),),
-          ),
-          Expanded(child: ListView.builder(
-            itemCount: categoryList.length,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 0.4.sh,width: 1.sw,color: Colors.red,
-                    decoration: BoxDecoration(
-                        color: Colors.red.shade900,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              categoryList[index].urlImage==null?
-                              'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
-                                  :
-                              categoryList[index].urlImage!),)
-                    ),
-                    child: Column(
-                      children: [
-                        Text(categoryList[index].title!),
-                      ],
-                    ),
-                  ),
-                );
-          }))
-        ],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Row(
+          children: [
+            Text(
+              widget.category!.categoryName!,
+              style: GoogleFonts.rubik(
+                  fontSize: 37.sp,
+                  color: Colors.red.shade900,
+                  fontWeight: FontWeight.w500),
+            ),
+            Shimmer.fromColors(
+              baseColor: Colors.grey.shade800,
+              highlightColor: Colors.transparent,
+              child: Text(
+                ' News',
+                style: GoogleFonts.play(
+                    fontSize: 29.sp,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                  itemCount: articles.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 0.4.sh,
+                        width: 1.sw,
+                        decoration: BoxDecoration(
+                            color: Colors.red.shade900,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(articles[index].urlToImage ==
+                                      null
+                                  ? 'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                  : articles[index].urlToImage!),
+                            )),
+                        child: Column(
+                          children: [
+                            Text(articles[index].title!),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            )
+          ],
+        ),
       ),
     );
   }

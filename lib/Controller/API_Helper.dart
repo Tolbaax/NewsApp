@@ -11,25 +11,24 @@ class ApiHelper{
     var body = jsonDecode(response.body);
 
     if(body['status']== 'ok')
+    {
+      body["articles"].forEach((element)
       {
-        body["articles"].forEach((element)
-        {
-          ArticleModel article =ArticleModel(
-            title: element["title"],
-            author: element["author"],
-            desc: element["description"],
-            url: element["url"],
-            urlImage: element["urlToImage"],
-            publishedAt: element["publishedAt"],
-            content: element["content"],
-          );
-          articles.add(article);
-        });
-      }
+        ArticleModel article =ArticleModel(
+          title: element["title"],
+          author: element["author"],
+          description: element["description"],
+          url: element["url"],
+          urlToImage: element["urlToImage"],
+          publishedAt: element["publishedAt"],
+        );
+        articles.add(article);
+      });
+    }
     else
-      {
-        print('No Data');
-      }
+    {
+      print('No Data');
+    }
     return articles;
   }
 
@@ -45,11 +44,10 @@ class ApiHelper{
         ArticleModel article =ArticleModel(
           title: element["title"],
           author: element["author"],
-          desc: element["description"],
+          description: element["description"],
           url: element["url"],
-          urlImage: element["urlToImage"],
+          urlToImage: element["urlToImage"],
           publishedAt: element["publishedAt"],
-          content: element["content"],
         );
         articles.add(article);
       });

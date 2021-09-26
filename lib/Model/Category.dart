@@ -1,7 +1,7 @@
 
 class CategoryModel
 {
-  String? title;
+  String? categoryName;
   String? imagePath;
-  CategoryModel({this.imagePath,this.title});
+  CategoryModel({this.imagePath,this.categoryName});
 }

@@ -3,9 +3,8 @@
    String? title;
    String? author;
    String? url;
-   String? urlImage;
-   String? desc;
+   String? urlToImage;
+   String? description;
    String? publishedAt;
-   String? content;
-   ArticleModel({this.title,this.author,this.desc,this.url,this.urlImage,this.publishedAt,this.content});
+   ArticleModel({this.title,this.author,this.description,this.url,this.urlToImage,this.publishedAt,});
  }

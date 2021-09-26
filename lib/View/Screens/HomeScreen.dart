@@ -18,12 +18,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> category=[
-    CategoryModel(title: 'Local',imagePath: 'https://i.guim.co.uk/img/media/3bf13aa96597041e2e1f68cfca85e2ca88f6d03c/0_186_5512_3308/master/5512.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=2d83f340e8389118873611688dd45323'),
-    CategoryModel(title: 'Sports',imagePath: 'https://pbs.twimg.com/media/EjubLbzWsAAm-bf.jpg'),
-    CategoryModel(title: 'Business',imagePath: 'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'),
-    CategoryModel(title: 'Environment',imagePath: 'https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247632.jpg'),
-    CategoryModel(title: 'Politics',imagePath: 'https://www.vicenzapiu.com/wp-content/uploads/2020/12/politica.jpg'),
-    CategoryModel(title: 'LifeStyle',imagePath: 'https://www.eehealth.org/-/media/images/modules/blog/posts/2019/08/workout-in-gym.jpg'),
+    CategoryModel(categoryName: 'General',imagePath: 'https://i.guim.co.uk/img/media/3bf13aa96597041e2e1f68cfca85e2ca88f6d03c/0_186_5512_3308/master/5512.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=2d83f340e8389118873611688dd45323'),
+    CategoryModel(categoryName: 'Technology',imagePath: 'https://www.globalfocusmagazine.com/wp-content/uploads/2020/02/Engaging_with_technology-scaled.jpg'),
+    CategoryModel(categoryName: 'Sports',imagePath: 'https://pbs.twimg.com/media/EjubLbzWsAAm-bf.jpg'),
+    CategoryModel(categoryName: 'Business',imagePath: 'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'),
+    CategoryModel(categoryName: 'Science',imagePath: 'https://assets.weforum.org/community/image/3v8PB95CCSn86e5fowthRAybW4ajSY18z2FfVPi2spk.jpeg'),
+    CategoryModel(categoryName: 'Health',imagePath: 'https://www.eehealth.org/-/media/images/modules/blog/posts/2019/08/workout-in-gym.jpg'),
   ];
 
   bool isConnected=false;
@@ -35,24 +35,24 @@ class _HomeScreenState extends State<HomeScreen> {
   getNews()
   {
     apiHelper.getNews().then((v)
-      {
-        setState(() {
-          homeList = v;
-        });
-      }
+    {
+      setState(() {
+        homeList = v;
+      });
+    }
     );
   }
   @override
   initState() {
     super.initState();
     getNews();
-   ConnectMethod = connect.onConnectivityChanged.listen((result) {
+    ConnectMethod = connect.onConnectivityChanged.listen((result) {
       if(result !=ConnectivityResult.none)
-        {
-          setState(() {
-            isConnected=true;
-          });
-        }
+      {
+        setState(() {
+          isConnected=true;
+        });
+      }
     });
   }
   @override
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             alignment: Alignment.bottomCenter,
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 25),
-                              child: Text(category[index].title!,style:
+                              child: Text(category[index].categoryName!,style:
                               GoogleFonts.share(fontSize: 35,color: Colors.white,fontWeight: FontWeight.w500),),
                             )),
                       ),
@@ -149,29 +149,29 @@ class _HomeScreenState extends State<HomeScreen> {
           Expanded(child: ListView.builder(
               itemCount: homeList.length,
               itemBuilder: (context,index){
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 0.4.sh,width: 1.sw,
-                decoration: BoxDecoration(
-                  color: Colors.red.shade900,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                        homeList[index].urlImage==null?
-                        'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
-                            :
-                        homeList[index].urlImage!),)
-                ),
-                child: Column(
-                  children: [
-                    Text(homeList[index].title!),
-                  ],
-                ),
-              ),
-            );
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 0.4.sh,width: 1.sw,
+                    decoration: BoxDecoration(
+                        color: Colors.red.shade900,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              homeList[index].urlToImage==null?
+                              'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                  :
+                              homeList[index].urlToImage!),)
+                    ),
+                    child: Column(
+                      children: [
+                        Text(homeList[index].title!),
+                      ],
+                    ),
+                  ),
+                );
 
-          }),)
+              }),)
         ],
       ),
     );

@@ -69,23 +69,40 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 0.4.sh,
-                        width: 1.sw,
-                        decoration: BoxDecoration(
-                            color: Colors.red.shade900,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(articles[index].urlToImage ==
-                                      null
-                                  ? 'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
-                                  : articles[index].urlToImage!),
-                            )),
-                        child: Column(
-                          children: [
-                            Text(articles[index].title!),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 0.35.sh,width: 1.sw,
+                            decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                      articles[index].urlToImage==null?
+                                      'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                          :
+                                      articles[index].urlToImage!),)
+                            ),
+                          ),
+                          Container(
+                            height: 60.h,width: double.infinity.sw,color: Colors.transparent,
+                            child: Column(
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(articles[index].title!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w600),),
+                                    Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 9,right: 5),
+                                          child: Text(articles[index].publishedAt!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w800),),
+                                        )),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     );
                   }),

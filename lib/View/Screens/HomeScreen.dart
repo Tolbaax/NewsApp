@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> category=[
     CategoryModel(categoryName: 'General',imagePath: 'https://i.guim.co.uk/img/media/3bf13aa96597041e2e1f68cfca85e2ca88f6d03c/0_186_5512_3308/master/5512.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=2d83f340e8389118873611688dd45323'),
-    CategoryModel(categoryName: 'Technology',imagePath: 'https://www.globalfocusmagazine.com/wp-content/uploads/2020/02/Engaging_with_technology-scaled.jpg'),
+    CategoryModel(categoryName: 'Tech',imagePath: 'https://www.globalfocusmagazine.com/wp-content/uploads/2020/02/Engaging_with_technology-scaled.jpg'),
     CategoryModel(categoryName: 'Sports',imagePath: 'https://pbs.twimg.com/media/EjubLbzWsAAm-bf.jpg'),
     CategoryModel(categoryName: 'Business',imagePath: 'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'),
     CategoryModel(categoryName: 'Science',imagePath: 'https://assets.weforum.org/community/image/3v8PB95CCSn86e5fowthRAybW4ajSY18z2FfVPi2spk.jpeg'),
@@ -151,26 +151,42 @@ class _HomeScreenState extends State<HomeScreen> {
               itemBuilder: (context,index){
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 0.4.sh,width: 1.sw,
-                    decoration: BoxDecoration(
-                        color: Colors.red.shade900,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              homeList[index].urlToImage==null?
-                              'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
-                                  :
-                              homeList[index].urlToImage!),)
-                    ),
-                    child: Column(
-                      children: [
-                        Text(homeList[index].title!),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 0.35.sh,width: 1.sw,
+                        decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  homeList[index].urlToImage==null?
+                                  'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                      :
+                                  homeList[index].urlToImage!),)
+                        ),
+                      ),
+                      Container(
+                        height: 60.h,width: double.infinity.sw,color: Colors.transparent,
+                        child: Column(
+                          children: [
+                             Column(
+                               children: [
+                                 Text(homeList[index].title!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w600),),
+                                 Align(
+                                     alignment: Alignment.bottomRight,
+                                     child: Padding(
+                                       padding: const EdgeInsets.only(top: 9,right: 5),
+                                       child: Text(homeList[index].publishedAt!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w800),),
+                                     )),
+                               ],
+                             )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 );
-
               }),)
         ],
       ),

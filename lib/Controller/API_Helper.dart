@@ -35,7 +35,7 @@ class ApiHelper{
   getNewsCategory(categoryName)async
   {
     List<ArticleModel>articles=[];
-    var response = await http.get(Uri.parse('https://newsapi.org/v2/top-headlines?country=us&category=$categoryName&apiKey=8a3cbe6943ad4a9c8aa85c0bd0cbbaa7'));
+    var response = await http.get(Uri.parse('https://newsapi.org/v2/top-headlines?country=Eg&category=$categoryName&apiKey=8a3cbe6943ad4a9c8aa85c0bd0cbbaa7'));
     var body = jsonDecode(response.body);
     if(body['status']== 'ok')
     {

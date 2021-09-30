@@ -1,5 +1,6 @@
 import'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news/View/Screens/ArticleScreen.dart';
 import 'package:news/View/Screens/CategoryScreen.dart';
 import 'package:news/View/Screens/HomeScreen.dart';
 import 'package:news/View/Screens/SpalshScreen.dart';
@@ -27,6 +28,7 @@ class _NewsState extends State<News> {
           HomeScreen.id:(context)=>HomeScreen(),
           SplashScreen.id:(context)=>SplashScreen(),
           CategoryScreen.id:(context)=>CategoryScreen(),
+          ArticleScreen.id:(context)=>ArticleScreen(),
         },
       ),
     );

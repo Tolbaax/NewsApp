@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news/Controller/API_Helper.dart';
 import 'package:news/Model/Category.dart';
 import 'package:news/Model/article.dart';
+import 'package:news/View/Screens/ArticleScreen.dart';
 import 'package:news/View/Screens/CategoryScreen.dart';
 import 'package:shimmer/shimmer.dart';
 class HomeScreen extends StatefulWidget {
@@ -146,48 +147,58 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }),
           ),
-          Expanded(child: ListView.builder(
-              itemCount: homeList.length,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 0.35.sh,width: 1.sw,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[400],
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  homeList[index].urlToImage==null?
-                                  'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
-                                      :
-                                  homeList[index].urlToImage!),)
+          Expanded(
+            child: ListView.builder(
+                itemCount: homeList.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        InkWell(
+                          onTap: ()
+                          {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)
+                            =>ArticleScreen(url: homeList[index].url,)));
+                          },
+                          child: Container(
+                            height: 0.35.sh,width: 1.sw,
+                            decoration: BoxDecoration(
+                                color: Colors.grey[400],
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                      homeList[index].urlToImage==null?
+                                      'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                          :
+                                      homeList[index].urlToImage!),)
+                            ),
+                          ),
                         ),
-                      ),
-                      Container(
-                        height: 60.h,width: double.infinity.sw,color: Colors.transparent,
-                        child: Column(
-                          children: [
-                             Column(
-                               children: [
-                                 Text(homeList[index].title!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w600),),
-                                 Align(
-                                     alignment: Alignment.bottomRight,
-                                     child: Padding(
-                                       padding: const EdgeInsets.only(top: 9,right: 5),
-                                       child: Text(homeList[index].publishedAt!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w800),),
-                                     )),
-                               ],
-                             )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              }),)
+                        Container(
+                          height: 65.h,width: double.infinity.sw,color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              Column(
+                                children: [
+                                  Text(homeList[index].title!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w600),),
+                                  Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 9,right: 5),
+                                        child: Text(homeList[index].publishedAt!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w800),),
+                                      )),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
+          ),
+
         ],
       ),
     );

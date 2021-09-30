@@ -4,6 +4,7 @@ import 'package:news/Controller/API_Helper.dart';
 import 'package:news/Model/Category.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/Model/article.dart';
+import 'package:news/View/Screens/ArticleScreen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -35,14 +36,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey[300],
         elevation: 0,
         title: Row(
           children: [
             Text(
               widget.category!.categoryName!,
               style: GoogleFonts.rubik(
-                  fontSize: 37.sp,
+                  fontSize: 34.sp,
                   color: Colors.red.shade900,
                   fontWeight: FontWeight.w500),
             ),
@@ -71,21 +72,28 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Container(
-                            height: 0.35.sh,width: 1.sw,
-                            decoration: BoxDecoration(
-                                color: Colors.grey[400],
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      articles[index].urlToImage==null?
-                                      'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
-                                          :
-                                      articles[index].urlToImage!),)
+                          InkWell(
+                            onTap: ()
+                            {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)
+                              =>ArticleScreen(url: articles[index].url,)));
+                            },
+                            child: Container(
+                              height: 0.35.sh,width: 1.sw,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[400],
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        articles[index].urlToImage==null?
+                                        'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                            :
+                                        articles[index].urlToImage!),)
+                              ),
                             ),
                           ),
                           Container(
-                            height: 60.h,width: double.infinity.sw,color: Colors.transparent,
+                            height: 65.h,width: double.infinity.sw,color: Colors.transparent,
                             child: Column(
                               children: [
                                 Column(
@@ -106,7 +114,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ),
                     );
                   }),
-            )
+            ),
           ],
         ),
       ),

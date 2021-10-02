@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news/Controller/API_Helper.dart';
 import 'package:news/Model/Category.dart';
+import 'package:news/Model/Provider/Country.dart';
 import 'package:news/Model/article.dart';
 import 'package:news/View/Screens/ArticleScreen.dart';
 import 'package:news/View/Screens/CategoryScreen.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 class HomeScreen extends StatefulWidget {
   static String id ='HomeScreen';
@@ -20,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> category=[
     CategoryModel(categoryName: 'General',imagePath: 'https://i.guim.co.uk/img/media/3bf13aa96597041e2e1f68cfca85e2ca88f6d03c/0_186_5512_3308/master/5512.jpg?width=445&quality=45&auto=format&fit=max&dpr=2&s=2d83f340e8389118873611688dd45323'),
-    CategoryModel(categoryName: 'Tech',imagePath: 'https://www.globalfocusmagazine.com/wp-content/uploads/2020/02/Engaging_with_technology-scaled.jpg'),
+    CategoryModel(categoryName: 'Technology',imagePath: 'https://www.globalfocusmagazine.com/wp-content/uploads/2020/02/Engaging_with_technology-scaled.jpg'),
     CategoryModel(categoryName: 'Sports',imagePath: 'https://pbs.twimg.com/media/EjubLbzWsAAm-bf.jpg'),
     CategoryModel(categoryName: 'Business',imagePath: 'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'),
     CategoryModel(categoryName: 'Science',imagePath: 'https://assets.weforum.org/community/image/3v8PB95CCSn86e5fowthRAybW4ajSY18z2FfVPi2spk.jpeg'),
@@ -35,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getNews()
   {
-    apiHelper.getNews().then((v)
+    apiHelper.getNews(context).then((v)
     {
       setState(() {
         homeList = v;
@@ -93,6 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 initialSelection: 'Eg',
                 showCountryOnly: true,
                 showOnlyCountryWhenClosed: true,
+                onChanged: (value)
+                {
+                  Provider.of<CountryPrv>(context,listen: false).countryChange(value.code);
+                  getNews();
+                },
               ),
             ],
           ),
@@ -169,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
                                       homeList[index].urlToImage==null?
-                                      'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                      'https://www.globalfocusmagazine.com/wp-content/uploads/2020/02/Engaging_with_technology-scaled.jpg'
                                           :
                                       homeList[index].urlToImage!),)
                             ),

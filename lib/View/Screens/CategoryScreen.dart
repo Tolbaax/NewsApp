@@ -19,7 +19,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   List<ArticleModel> articles = [];
   ApiHelper apiHelper = ApiHelper();
   getCategoryNews() {
-    apiHelper.getNewsCategory(widget.category!.categoryName!).then((v) {
+    apiHelper.getNewsCategory(widget.category!.categoryName!,).then((v) {
       setState(() {
         articles = v;
       });

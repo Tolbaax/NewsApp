@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:news/Model/Provider/Country.dart';
 import 'package:news/Model/article.dart';
+import 'package:provider/provider.dart';
 
 class ApiHelper{
 
-  getNews()async
+  getNews(c)async
   {
     List<ArticleModel>articles=[];
-    var response = await http.get(Uri.parse('https://newsapi.org/v2/top-headlines?country=Eg&apiKey=330ca0aaad2142668cb50d692a5afeb7'));
+    var response = await http.get(Uri.parse('https://newsapi.org/v2/top-headlines?country=${Provider.of<CountryPrv>(c,listen: false).code}&apiKey=330ca0aaad2142668cb50d692a5afeb7'));
     var body = jsonDecode(response.body);
 
     if(body['status']== 'ok')

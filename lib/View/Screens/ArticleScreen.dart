@@ -12,7 +12,7 @@ class ArticleScreen extends StatelessWidget {
         title: Text('World News',style: TextStyle(color: Colors.black,fontSize: 25,),),
       ),
       body: WebView(
-        initialUrl: (url),
+        initialUrl: url,
       ),
     );
   }

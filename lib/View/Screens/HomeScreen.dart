@@ -66,23 +66,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red.shade900,
-        child:Icon(Icons.search,size: 27,),
-        onPressed: (){},
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.red.shade900,
+      //   child:Icon(Icons.search,size: 27,),
+      //   onPressed: (){},
+      // ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Row(
           children: [
             Text('     WORLD',style:
-            GoogleFonts.rubik(fontSize: 37.sp,color: Colors.red.shade900,fontWeight: FontWeight.w500),),
+            GoogleFonts.jomolhari(fontSize: 36.sp,color: Colors.red.shade900,fontWeight: FontWeight.w600),),
             Shimmer.fromColors(
               baseColor: Colors.grey.shade800,
               highlightColor: Colors.transparent,
               child: Text(' News',style:
-              GoogleFonts.play(fontSize: 29.sp,color: Colors.grey,fontWeight: FontWeight.w600),),
+              GoogleFonts.jomolhari(fontSize: 29.sp,color: Colors.grey,fontWeight: FontWeight.w600),),
             ),
           ],
         ),
@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 25),
                               child: Text(category[index].categoryName!,style:
-                              GoogleFonts.share(fontSize: 35,color: Colors.white,fontWeight: FontWeight.w500),),
+                              GoogleFonts.jomolhari(fontSize: 35,color: Colors.white,fontWeight: FontWeight.w500),),
                             )),
                       ),
                     ),
@@ -183,17 +183,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Container(
-                          height: 65.h,width: double.infinity.sw,color: Colors.transparent,
+                          height: 85.h,width: double.infinity.sw,color: Colors.transparent,
                           child: Column(
                             children: [
                               Column(
                                 children: [
-                                  Text(homeList[index].title!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w600),),
+                                  Text(homeList[index].title!,style: GoogleFonts.jomolhari(fontSize: 13,fontWeight: FontWeight.w700),),
                                   Align(
                                       alignment: Alignment.bottomRight,
                                       child: Padding(
                                         padding: const EdgeInsets.only(top: 9,right: 5),
-                                        child: Text(homeList[index].publishedAt!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.w800),),
+                                        child: Text(homeList[index].publishedAt!,style: GoogleFonts.jomolhari(fontSize: 13,fontWeight: FontWeight.w800),),
                                       )),
                                 ],
                               )

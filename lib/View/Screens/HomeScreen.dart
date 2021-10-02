@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Column(
         children: [
           Container(
-            height: 150.h,width: 1.sw,
+            height: 140.h,width: 1.sw,
             child: ListView.builder(
                 itemCount: category.length,
                 scrollDirection: Axis.horizontal,
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         =>CategoryScreen(category: category[index],)));
                       },
                       child: Container(
-                        width: 0.6.sw,
+                        width: 0.55.sw,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: NetworkImage(category[index].imagePath!),
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Container(
-                          height: 85.h,width: double.infinity.sw,color: Colors.transparent,
+                          height: 0.12.sh,width: double.infinity.sw,color: Colors.transparent,
                           child: Column(
                             children: [
                               Column(

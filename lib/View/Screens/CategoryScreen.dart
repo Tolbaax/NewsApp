@@ -69,7 +69,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   itemCount: articles.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(6.0),
                       child: Column(
                         children: [
                           InkWell(
@@ -86,14 +86,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     fit: BoxFit.cover,
                                     image: NetworkImage(
                                         articles[index].urlToImage==null?
-                                        'https://c0.wallpaperflare.com/preview/702/176/950/agenda-american-analytics-black-and-white-thumbnail.jpg'
+                                        'https://assets.weforum.org/community/image/3v8PB95CCSn86e5fowthRAybW4ajSY18z2FfVPi2spk.jpeg'
                                             :
                                         articles[index].urlToImage!),)
                               ),
                             ),
                           ),
                           Container(
-                            height: 85.h,width: double.infinity.sw,color: Colors.transparent,
+                            height: 0.12.sh,width: double.infinity.sw,color: Colors.transparent,
                             child: Column(
                               children: [
                                 Column(
